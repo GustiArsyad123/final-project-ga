@@ -9,25 +9,30 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.event.hasMany(models.review, { foreignKey: "id_recipe" });
-      models.event.hasMany(models.order, { foreignKey: "id_recipe" });
-      models.event.belongsTo(models.category, { foreignKey: "id_category" });
-      models.event.belongsTo(models.user, { foreignKey: "id_user" });
-      models.event.belongsTo(models.type, { foreignKey: "id_type" });
-      models.event.belongsTo(models.ingredient, { foreignKey: "id_ingredient" });
+      models.recipe.hasMany(models.review, { foreignKey: "id_recipe" });
+      models.recipe.hasMany(models.order, { foreignKey: "id_recipe" });
+      models.recipe.hasMany(models.cart, { foreignKey: "id_recipe" });
+      models.recipe.hasMany(models.seller, { foreignKey: "id_recipe" });
+      models.recipe.belongsTo(models.category, { foreignKey: "id_category" });
+      models.recipe.belongsTo(models.user, { foreignKey: "id_user" });
+      models.recipe.belongsTo(models.type, { foreignKey: "id_type" });
+      models.recipe.belongsTo(models.location, { foreignKey: "id_location" });
     }
   };
   recipe.init({
     id_category: DataTypes.INTEGER,
     id_user: DataTypes.INTEGER,
     id_type: DataTypes.INTEGER,
-    id_ingredient: DataTypes.INTEGER,
     title: DataTypes.STRING,
     duration: DataTypes.STRING,
     serving: DataTypes.STRING,
     image: DataTypes.STRING,
-    description: DataTypes.STRING,
-    direction: DataTypes.STRING
+    description: DataTypes.TEXT,
+    direction: DataTypes.TEXT,
+    ingredient: DataTypes.JSONB,
+    stock: DataTypes.INTEGER,
+    price: DataTypes.INTEGER,
+    id_location: DataTypes.INTEGER,
   }, {
     sequelize,
     paranoid: true,

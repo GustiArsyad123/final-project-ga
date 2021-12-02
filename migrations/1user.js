@@ -30,9 +30,8 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-
       phoneNumber: {
-        type: Sequelize.integer,
+        type: Sequelize.STRING,
         unique: true,
         allowNull: true,
       },
@@ -60,6 +59,23 @@ module.exports = {
         allowNull: true,
         type: Sequelize.DATE,
       },
+      id_location: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
+    });
+
+    await queryInterface.addConstraint('users', {
+      fields: ['id_location'],
+      type: 'foreign key',
+      name: 'custom_fkey_id_locationUser',
+      references: {
+        //Required field
+        table: 'locations',
+        field: 'id',
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade',
     });
   },
   down: async (queryInterface, Sequelize) => {

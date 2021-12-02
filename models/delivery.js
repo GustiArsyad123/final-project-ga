@@ -9,15 +9,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.delivery.hashMany(models.order, { foreignKey: "id_order" });
+      models.delivery.hasMany(models.order, { foreignKey: "id_delivery" });
     }
   }
   delivery.init(
     {
       firstName: DataTypes.STRING,
       lastName: DataTypes.STRING,
-      phoneNumber: DataTypes.INTEGER,
+      phoneNumber: DataTypes.STRING,
       address: DataTypes.STRING,
+      usernya: DataTypes.INTEGER,
     },
     {
       sequelize,
